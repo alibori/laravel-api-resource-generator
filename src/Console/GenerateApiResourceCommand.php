@@ -144,7 +144,7 @@ class GenerateApiResourceCommand extends Command
     {
         $class = get_class($model);
         $name = class_basename($class);
-        $path = $this->dir . '/' . $name . '.php';
+        $path = $this->dir . '/' . $name . 'Resource' . '.php';
 
         if ($this->files->exists($path)) {
             $this->error("API Resource for $class already exists!");
@@ -165,13 +165,19 @@ class GenerateApiResourceCommand extends Command
         $properties = $this->properties;
         $fields = '';
 
+        $properties_length = count($properties);
+        $count = 0;
         foreach ($properties as $property) {
-            $fields .= "\t\t\t'$property' => \$this->$property,\n";
+            if ($count < $properties_length - 1) {
+                $fields .= "'$property' => \$this->$property,\n";
+            } else {
+                $fields .= "'$property' => \$this->$property";
+            }
         }
 
         $stub = $this->files->get($this->stub);
 
-        $stub = str_replace('{{ class }}', $name, $stub);
+        $stub = str_replace('{{ class }}', $name . 'Resource', $stub);
         $stub = str_replace('{{ namespace }}', $this->namespace, $stub);
         return str_replace('{{ fields }}', $fields, $stub);
     }
