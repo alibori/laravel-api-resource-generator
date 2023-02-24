@@ -171,9 +171,9 @@ class GenerateApiResourceCommand extends Command
             if ($count === 0) {
                 $fields .= "'$property' => \$this->$property,\n";
             } else if ($count < $properties_length - 1) {
-                $fields .= "'\t\t\t$property' => \$this->$property,\n";
+                $fields .= "\t\t\t'$property' => \$this->$property,\n";
             } else {
-                $fields .= "'\t\t\t$property' => \$this->$property";
+                $fields .= "\t\t\t'$property' => \$this->$property";
             }
 
             $count++;
