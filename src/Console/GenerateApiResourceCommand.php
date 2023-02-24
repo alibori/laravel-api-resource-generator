@@ -48,7 +48,7 @@ class GenerateApiResourceCommand extends Command
     /**
      * @var string
      */
-    protected string $stub = __DIR__ . '/stubs/api-resource.php.stub';
+    protected string $stub = __DIR__.'/stubs/api-resource.php.stub';
 
     public function __construct(Filesystem $files)
     {
@@ -91,8 +91,7 @@ class GenerateApiResourceCommand extends Command
      */
     protected function loadModel(string $model): Model
     {
-
-        return $this->laravel->make(config('laravelapiresourcegeneratorpackage.models.namespace') . '\\' . $model);
+        return $this->laravel->make(config('laravelapiresourcegeneratorpackage.models.namespace').'\\'.$model);
     }
 
     /**
@@ -100,7 +99,7 @@ class GenerateApiResourceCommand extends Command
      */
     protected function getPropertiesFromTable(Model $model): void
     {
-        $table = $model->getConnection()->getTablePrefix() . $model->getTable();
+        $table = $model->getConnection()->getTablePrefix().$model->getTable();
 
         try {
             $schema = $model->getConnection()->getDoctrineSchemaManager();
@@ -109,9 +108,9 @@ class GenerateApiResourceCommand extends Command
             $driver = $model->getConnection()->getDriverName();
 
             if (in_array($driver, ['mysql', 'pgsql', 'sqlite'])) {
-                $this->error("Database driver ($driver) for $class model is not configured properly!");
+                $this->error("Database driver ({$driver}) for {$class} model is not configured properly!");
             } else {
-                $this->warn("Database driver ($driver) for $class model is not supported.");
+                $this->warn("Database driver ({$driver}) for {$class} model is not supported.");
             }
 
             return;
@@ -125,7 +124,7 @@ class GenerateApiResourceCommand extends Command
 
         $columns = $schema->listTableColumns($table, $database);
 
-        if (! $columns) {
+        if ( ! $columns) {
             return;
         }
 
@@ -143,17 +142,17 @@ class GenerateApiResourceCommand extends Command
     {
         $class = get_class($model);
         $name = class_basename($class);
-        $path = $this->dir . '/' . $name . 'Resource' . '.php';
+        $path = $this->dir.'/'.$name.'Resource'.'.php';
 
         if ($this->files->exists($path)) {
-            $this->error("API Resource for $class already exists!");
+            $this->error("API Resource for {$class} already exists!");
 
             return;
         }
 
         $this->files->put($path, $this->buildResource($class, $name));
 
-        $this->info("API Resource for $class created successfully.");
+        $this->info("API Resource for {$class} created successfully.");
     }
 
     /**
@@ -167,12 +166,12 @@ class GenerateApiResourceCommand extends Command
         $properties_length = count($properties);
         $count = 0;
         foreach ($properties as $property) {
-            if ($count === 0) {
-                $fields .= "'$property' => \$this->$property,\n";
-            } else if ($count < $properties_length - 1) {
-                $fields .= "\t\t\t'$property' => \$this->$property,\n";
+            if (0 === $count) {
+                $fields .= "'{$property}' => \$this->{$property},\n";
+            } elseif ($count < $properties_length - 1) {
+                $fields .= "\t\t\t'{$property}' => \$this->{$property},\n";
             } else {
-                $fields .= "\t\t\t'$property' => \$this->$property";
+                $fields .= "\t\t\t'{$property}' => \$this->{$property}";
             }
 
             $count++;
@@ -180,7 +179,7 @@ class GenerateApiResourceCommand extends Command
 
         $stub = $this->files->get($this->stub);
 
-        $stub = str_replace('{{ class }}', $name . 'Resource', $stub);
+        $stub = str_replace('{{ class }}', $name.'Resource', $stub);
         $stub = str_replace('{{ namespace }}', $this->namespace, $stub);
         return str_replace('{{ fields }}', $fields, $stub);
     }

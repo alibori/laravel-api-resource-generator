@@ -38,5 +38,9 @@
         "illuminate/database": "^9.1"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "orchestra/testbench": "^7.22",
+        "laravel/pint": "^1.6"
+    }
 }

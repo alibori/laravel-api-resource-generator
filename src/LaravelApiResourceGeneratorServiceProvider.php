@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelApiResourceGeneratorServiceProvider extends ServiceProvider
 {
-/**
+    /**
      * Register the application services.
      *
      * @return void
@@ -26,7 +26,7 @@ class LaravelApiResourceGeneratorServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (! $this->app->runningInConsole()) {
+        if ( ! $this->app->runningInConsole()) {
             return;
         }
 
