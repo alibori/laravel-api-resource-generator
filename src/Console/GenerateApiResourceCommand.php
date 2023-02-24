@@ -163,9 +163,11 @@ class GenerateApiResourceCommand extends Command
     protected function buildResource(string $class, string $name): string
     {
         $properties = $this->properties;
-        $fields = array_map(function ($field) {
-            return "'$field' => \$this->$field,";
-        }, $properties);
+        $fields = '';
+
+        foreach ($properties as $property) {
+            $fields .= "\t\t\t'$property' => \$this->$property,\n";
+        }
 
         $stub = $this->files->get($this->stub);
 
