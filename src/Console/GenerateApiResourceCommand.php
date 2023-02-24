@@ -93,7 +93,7 @@ class GenerateApiResourceCommand extends Command
     protected function loadModel(string $model): Model
     {
 
-        return $this->laravel->make($model);
+        return $this->laravel->make('App\\Models\\' . $model);
     }
 
     /**
