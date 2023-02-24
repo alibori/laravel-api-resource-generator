@@ -1,0 +1,37 @@
+{
+    "name": "alibori/laravel-api-resource-generator",
+    "description": "Package to generate API resources from models.",
+    "authors": [
+        {
+            "name": "Axel Libori Roch",
+            "email": "a.libori@gmail.com"
+        }
+    ],
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Alibori\\LaravelApiResourceGenerator\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Alibori\\LaravelApiResourceGenerator\\LaravelApiResourceGeneratorServiceProvider"
+            ]
+        }
+    },
+    "keywords": [
+        "laravel",
+        "resources",
+        "generator"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
+        "illuminate/console": "^6.0|^7.0|^8.0|^9.0|^10.0",
+        "illuminate/filesystem": "^6.0|^7.0|^8.0|^9.0|^10.0",
+        "doctrine/dbal": "^2.9|^2.10|^3.0",
+        "illuminate/database": "^10.1"
+    }
+}
