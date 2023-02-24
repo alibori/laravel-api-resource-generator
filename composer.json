@@ -35,7 +35,8 @@
         "illuminate/console": "^6.0|^7.0|^8.0|^9.0|^10.0",
         "illuminate/filesystem": "^6.0|^7.0|^8.0|^9.0|^10.0",
         "doctrine/dbal": "^2.9|^2.10|^3.0",
-        "illuminate/database": "^9.1"
+        "illuminate/database": "^9.1",
+        "barryvdh/reflection-docblock": "^2.1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

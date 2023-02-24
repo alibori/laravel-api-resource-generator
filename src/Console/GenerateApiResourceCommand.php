@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Alibori\LaravelApiResourceGenerator\Console;
 
+use Barryvdh\Reflection\DocBlock;
+use Barryvdh\Reflection\DocBlock\Serializer as DocBlockSerializer;
+use Barryvdh\Reflection\DocBlock\Tag;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -11,6 +14,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use ReflectionException;
 use Symfony\Component\Console\Input\InputArgument;
 
 class GenerateApiResourceCommand extends Command
@@ -61,6 +65,7 @@ class GenerateApiResourceCommand extends Command
      * @throws BindingResolutionException
      * @throws \Doctrine\DBAL\Exception
      * @throws FileNotFoundException
+     * @throws ReflectionException
      */
     public function handle(): void
     {
@@ -137,6 +142,7 @@ class GenerateApiResourceCommand extends Command
 
     /**
      * @throws FileNotFoundException
+     * @throws ReflectionException
      */
     protected function generateResource(Model $model): void
     {
@@ -157,10 +163,12 @@ class GenerateApiResourceCommand extends Command
 
     /**
      * @throws FileNotFoundException
+     * @throws ReflectionException
      */
     protected function buildResource(string $class, string $name): string
     {
         $properties = $this->properties;
+        $doc_block = $this->generatePHPDocs();
         $fields = '';
 
         $properties_length = count($properties);
@@ -179,8 +187,29 @@ class GenerateApiResourceCommand extends Command
 
         $stub = $this->files->get($this->stub);
 
+        $stub = str_replace('{{ docblock }}', $doc_block, $stub);
         $stub = str_replace('{{ class }}', $name.'Resource', $stub);
         $stub = str_replace('{{ namespace }}', $this->namespace, $stub);
         return str_replace('{{ fields }}', $fields, $stub);
+    }
+
+    protected function generatePHPDocs(): string
+    {
+        $phpdoc = new DocBlock('');
+
+        foreach ($this->properties as $name => $property) {
+            $name = "\$$name";
+
+            $attr = 'property';
+
+            $tagLine = trim("@{$attr} {$name}");
+            $tag = Tag::createInstance($tagLine, $phpdoc);
+            $phpdoc->appendTag($tag);
+        }
+
+        $serializer = new DocBlockSerializer();
+        $docComment = $serializer->getDocComment($phpdoc);
+
+        return "{$docComment}";
     }
 }
