@@ -168,11 +168,15 @@ class GenerateApiResourceCommand extends Command
         $properties_length = count($properties);
         $count = 0;
         foreach ($properties as $property) {
-            if ($count < $properties_length - 1) {
+            if ($count === 0) {
                 $fields .= "'$property' => \$this->$property,\n";
+            } else if ($count < $properties_length - 1) {
+                $fields .= "'\t\t\t$property' => \$this->$property,\n";
             } else {
-                $fields .= "'$property' => \$this->$property";
+                $fields .= "'\t\t\t$property' => \$this->$property";
             }
+
+            $count++;
         }
 
         $stub = $this->files->get($this->stub);
