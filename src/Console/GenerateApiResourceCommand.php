@@ -11,7 +11,6 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
-use ReflectionClass;
 use Symfony\Component\Console\Input\InputArgument;
 
 class GenerateApiResourceCommand extends Command
@@ -66,7 +65,7 @@ class GenerateApiResourceCommand extends Command
     public function handle(): void
     {
         $this->dir = $this->defaultResourcesDir();
-        $this->namespace = 'App\Http\Resources';
+        $this->namespace = config('laravelapiresourcegeneratorpackage.resources.namespace');
 
         $model = $this->loadModel($this->argument('model'));
 
@@ -84,7 +83,7 @@ class GenerateApiResourceCommand extends Command
 
     protected function defaultResourcesDir(): string
     {
-        return 'app/Http/Resources';
+        return config('laravelapiresourcegeneratorpackage.resources.dir');
     }
 
     /**
@@ -93,7 +92,7 @@ class GenerateApiResourceCommand extends Command
     protected function loadModel(string $model): Model
     {
 
-        return $this->laravel->make('App\\Models\\' . $model);
+        return $this->laravel->make(config('laravelapiresourcegeneratorpackage.models.namespace') . '\\' . $model);
     }
 
     /**

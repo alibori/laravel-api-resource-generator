@@ -9,6 +9,16 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelApiResourceGeneratorServiceProvider extends ServiceProvider
 {
+/**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravelapiresourcegeneratorpackage');
+    }
+
     /**
      * Bootstrap the application services.
      *
@@ -21,5 +31,10 @@ class LaravelApiResourceGeneratorServiceProvider extends ServiceProvider
         }
 
         $this->commands([GenerateApiResourceCommand::class]);
+
+        // Publish config file
+        $this->publishes([
+            __DIR__.'/../config/config.php' => config_path('laravelapiresourcegeneratorpackage.php'),
+        ], 'config');
     }
 }
