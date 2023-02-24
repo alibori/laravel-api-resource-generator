@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use ReflectionClass;
+use Symfony\Component\Console\Input\InputArgument;
 
 class GenerateApiResourceCommand extends Command
 {
@@ -60,6 +61,7 @@ class GenerateApiResourceCommand extends Command
     /**
      * @throws BindingResolutionException
      * @throws \Doctrine\DBAL\Exception
+     * @throws FileNotFoundException
      */
     public function handle(): void
     {
@@ -71,6 +73,13 @@ class GenerateApiResourceCommand extends Command
         $this->getPropertiesFromTable($model);
 
         $this->generateResource($model);
+    }
+
+    protected function getArguments(): array
+    {
+        return [
+            ['model', InputArgument::REQUIRED, 'The model class name.'],
+        ];
     }
 
     protected function defaultResourcesDir(): string
