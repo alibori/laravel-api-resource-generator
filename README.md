@@ -33,14 +33,14 @@ use JsonSerializable;
 /**
  * 
  *
- * @property $id
- * @property $name
- * @property $email
- * @property $email_verified_at
- * @property $password
- * @property $remember_token
- * @property $created_at
- * @property $updated_at
+ * @property integer $id
+ * @property string $name
+ * @property string $email
+ * @property string $email_verified_at
+ * @property string $password
+ * @property string $remember_token
+ * @property string $created_at
+ * @property string $updated_at
  */
 class UserResource extends JsonResource
 {
