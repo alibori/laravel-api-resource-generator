@@ -70,7 +70,6 @@ class GenerateApiResourceCommand extends Command
      * @throws BindingResolutionException
      * @throws \Doctrine\DBAL\Exception
      * @throws FileNotFoundException
-     * @throws ReflectionException
      */
     public function handle(): void
     {
@@ -157,7 +156,6 @@ class GenerateApiResourceCommand extends Command
 
     /**
      * @throws FileNotFoundException
-     * @throws ReflectionException
      */
     protected function generateResource(Model $model): void
     {
@@ -178,7 +176,6 @@ class GenerateApiResourceCommand extends Command
 
     /**
      * @throws FileNotFoundException
-     * @throws ReflectionException
      */
     protected function buildResource(string $class, string $name): string
     {
@@ -213,11 +210,12 @@ class GenerateApiResourceCommand extends Command
         $phpdoc = new DocBlock('');
 
         foreach ($this->php_docs_properties as $name => $property) {
+            $type = explode(' ', $property);
             $name = "\$$name";
 
             $attr = 'property';
 
-            $tagLine = trim("@{$attr} {$name}");
+            $tagLine = trim("@{$attr} {$type[0]} {$name}");
             $tag = Tag::createInstance($tagLine, $phpdoc);
             $phpdoc->appendTag($tag);
         }
