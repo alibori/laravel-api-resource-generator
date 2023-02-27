@@ -50,6 +50,11 @@ class GenerateApiResourceCommand extends Command
     protected array $properties = [];
 
     /**
+     * @var array
+     */
+    protected array $php_docs_properties = [];
+
+    /**
      * @var string
      */
     protected string $stub = __DIR__.'/stubs/api-resource.php.stub';
@@ -145,7 +150,8 @@ class GenerateApiResourceCommand extends Command
                 default => 'mixed',
             };
 
-            $this->properties[$field] = $field_type . ' ' . $field;
+            $this->properties[$field] = $field;
+            $this->php_docs_properties[$field] = $field_type . ' ' . $field;
         }
     }
 
@@ -206,7 +212,7 @@ class GenerateApiResourceCommand extends Command
     {
         $phpdoc = new DocBlock('');
 
-        foreach ($this->properties as $name => $property) {
+        foreach ($this->php_docs_properties as $name => $property) {
             $name = "\$$name";
 
             $attr = 'property';
