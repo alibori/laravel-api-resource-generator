@@ -135,8 +135,17 @@ class GenerateApiResourceCommand extends Command
 
         foreach ($columns as $column) {
             $field = $column->getName();
+            $type = $column->getType()->getName();
 
-            $this->properties[$field] = $field;
+            $field_type = match ($type) {
+                'string', 'text', 'date', 'time', 'guid', 'datetimetz', 'datetime', 'decimal' => 'string',
+                'integer', 'bigint', 'smallint' => 'integer',
+                'boolean' => 'boolean',
+                'float' => 'float',
+                default => 'mixed',
+            };
+
+            $this->properties[$field] = $field_type . ' ' . $field;
         }
     }
 
