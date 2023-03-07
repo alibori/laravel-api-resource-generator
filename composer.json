@@ -13,6 +13,11 @@
             "Alibori\\LaravelApiResourceGenerator\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Alibori\\LaravelApiResourceGenerator\\Tests\\": "tests"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-main": "1.0.x-dev"
@@ -42,6 +47,17 @@
     "prefer-stable": true,
     "require-dev": {
         "orchestra/testbench": "^7.22",
-        "laravel/pint": "^1.6"
+        "laravel/pint": "^1.6",
+        "pestphp/pest": "^1.22",
+        "pestphp/pest-plugin-laravel": "^1.4"
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage-html coverage"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
