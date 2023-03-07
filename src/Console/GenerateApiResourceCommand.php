@@ -14,7 +14,6 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
-use ReflectionException;
 use Symfony\Component\Console\Input\InputArgument;
 
 class GenerateApiResourceCommand extends Command
@@ -150,7 +149,7 @@ class GenerateApiResourceCommand extends Command
             };
 
             $this->properties[$field] = $field;
-            $this->php_docs_properties[$field] = $field_type . ' ' . $field;
+            $this->php_docs_properties[$field] = $field_type.' '.$field;
         }
     }
 
@@ -211,7 +210,7 @@ class GenerateApiResourceCommand extends Command
 
         foreach ($this->php_docs_properties as $name => $property) {
             $type = explode(' ', $property);
-            $name = "\$$name";
+            $name = "\${$name}";
 
             $attr = 'property';
 
