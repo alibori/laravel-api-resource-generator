@@ -1,5 +1,9 @@
 # Laravel API Resource Generator Package
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/alibori/weight-conversion.svg?style=flat-square)](https://packagist.org/packages/alibori/weight-conversion)
+[![Tests](https://img.shields.io/github/actions/workflow/status/alibori/weight-conversion/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/alibori/weight-conversion/actions/workflows/run-tests.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/alibori/weight-conversion.svg?style=flat-square)](https://packagist.org/packages/alibori/weight-conversion)
+
 This package will help you to generate API resources for your Laravel project.
 
 ## Installation
