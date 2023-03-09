@@ -1,7 +1,7 @@
 # Laravel API Resource Generator Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/alibori/laravel-api-resource-generator.svg?style=flat-square)](https://packagist.org/packages/alibori/laravel-api-resource-generator)
-![Tests Passed](https://github.com/alibori/laravel-api-resource-generator/actions/workflows/run-tests.yml/badge.svg/badge.svg?event=push)
+![Tests Passed](https://github.com/alibori/laravel-api-resource-generator/actions/workflows/run-tests.yml/badge.svg?event=push)
 [![Total Downloads](https://img.shields.io/packagist/dt/alibori/laravel-api-resource-generator.svg?style=flat-square)](https://packagist.org/packages/alibori/laravel-api-resource-generator)
 
 This package will help you to generate API resources for your Laravel project.
