@@ -33,10 +33,10 @@ class TestCase extends Orchestra
         ]);
 
         // Set config values
-        $config->set('laravelapiresourcegeneratorpackage.resources.namespace', 'Alibori\\LaravelApiResourceGenerator\\App\\Http\\Resources');
-        $config->set('laravelapiresourcegeneratorpackage.resources.dir', 'app/Http/Resources');
-        $config->set('laravelapiresourcegeneratorpackage.models.namespace', 'Alibori\\LaravelApiResourceGenerator\\App\\Models');
-        $config->set('laravelapiresourcegeneratorpackage.models.dir', 'app/Models');
+        $config->set('apiresourcegenerator.resources.namespace', 'Alibori\\LaravelApiResourceGenerator\\App\\Http\\Resources');
+        $config->set('apiresourcegenerator.resources.dir', 'app/Http/Resources');
+        $config->set('apiresourcegenerator.models.namespace', 'Alibori\\LaravelApiResourceGenerator\\App\\Models');
+        $config->set('apiresourcegenerator.models.dir', 'app/Models');
 
         // Create the users table
         include_once __DIR__.'/../database/migrations/create_users_table.php.stub';

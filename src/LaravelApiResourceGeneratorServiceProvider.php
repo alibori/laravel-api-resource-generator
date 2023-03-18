@@ -16,7 +16,7 @@ class LaravelApiResourceGeneratorServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravelapiresourcegeneratorpackage');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'apiresourcegenerator');
     }
 
     /**
@@ -34,7 +34,7 @@ class LaravelApiResourceGeneratorServiceProvider extends ServiceProvider
 
         // Publish config file
         $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('laravelapiresourcegeneratorpackage.php'),
+            __DIR__.'/../config/config.php' => config_path('apiresourcegenerator.php'),
         ], 'config');
     }
 }

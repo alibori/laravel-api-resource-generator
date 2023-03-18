@@ -19,7 +19,7 @@ composer require alibori/laravel-api-resource-generator
 All you need to do is to run the following command:
 
 ``` bash
-php artisan alibori:api-resource <model-name>
+php artisan api-resource:generate <model-name>
 ```
 
 This command will generate a new resource for the given model name with the properties defined in the model. For example, for the model named `User` you will get the following resource:
