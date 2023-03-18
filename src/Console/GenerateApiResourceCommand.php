@@ -118,9 +118,9 @@ class GenerateApiResourceCommand extends Command
             $driver = $model->getConnection()->getDriverName();
 
             if (in_array($driver, ['mysql', 'pgsql', 'sqlite'])) {
-                $this->error("Database driver ($driver) for $class model is not configured properly!");
+                $this->error("Database driver ({$driver}) for {$class} model is not configured properly!");
             } else {
-                $this->warn("Database driver ($driver) for $class model is not supported.");
+                $this->warn("Database driver ({$driver}) for {$class} model is not supported.");
             }
 
             return;
@@ -174,7 +174,7 @@ class GenerateApiResourceCommand extends Command
 
         $this->files->put($path, $this->buildResource($name));
 
-        $this->info("API Resource for $class created successfully.");
+        $this->info("API Resource for {$class} created successfully.");
     }
 
     /**
@@ -190,11 +190,11 @@ class GenerateApiResourceCommand extends Command
         $count = 0;
         foreach ($properties as $property) {
             if (0 === $count) {
-                $fields .= "'$property' => \$this->$property,\n";
+                $fields .= "'{$property}' => \$this->{$property},\n";
             } elseif ($count < $properties_length - 1) {
-                $fields .= "\t\t\t'$property' => \$this->$property,\n";
+                $fields .= "\t\t\t'{$property}' => \$this->{$property},\n";
             } else {
-                $fields .= "\t\t\t'$property' => \$this->$property";
+                $fields .= "\t\t\t'{$property}' => \$this->{$property}";
             }
 
             $count++;
@@ -214,11 +214,11 @@ class GenerateApiResourceCommand extends Command
 
         foreach ($this->php_docs_properties as $name => $property) {
             $type = explode(' ', $property);
-            $name = "\$$name";
+            $name = "\${$name}";
 
             $attr = 'property';
 
-            $tagLine = trim("@$attr $type[0] $name");
+            $tagLine = trim("@{$attr} {$type[0]} {$name}");
             $tag = Tag::createInstance($tagLine, $phpdoc);
             $phpdoc->appendTag($tag);
         }
@@ -226,6 +226,6 @@ class GenerateApiResourceCommand extends Command
         $serializer = new DocBlockSerializer();
         $docComment = $serializer->getDocComment($phpdoc);
 
-        return "$docComment";
+        return "{$docComment}";
     }
 }
