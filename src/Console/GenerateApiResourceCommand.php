@@ -198,7 +198,7 @@ class GenerateApiResourceCommand extends Command
         foreach ($properties as $property) {
             $array_key = $property;
 
-            if ($this->return_case === 'camelCase') {
+            if ('camelCase' === $this->return_case) {
                 $array_key = Str::camel($property);
             }
 
