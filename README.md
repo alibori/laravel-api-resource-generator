@@ -16,7 +16,7 @@ composer require alibori/laravel-api-resource-generator --dev
 
 ## Usage
 
-All you need to do is to run the following command:
+All you need to do is run the following command:
 
 ``` bash
 php artisan api-resource:generate <model-name>
@@ -24,7 +24,7 @@ php artisan api-resource:generate <model-name>
 
 This command will generate a new resource for the given model name with the properties defined in the model.
 
-If you want to set the array keys of the resource as *camelCase*, you can use the `--camel-case`, you will be prompted to do it.
+If you want to set the array keys of the resource as *camelCase*, you will be prompted to do it.
 
 For example, for the model named `User` you will get the following resource:
 
