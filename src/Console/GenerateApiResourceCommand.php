@@ -171,6 +171,10 @@ class GenerateApiResourceCommand extends Command
         $name = class_basename($class);
         $path = $this->dir.'/'.$name.'Resource'.'.php';
 
+        if ( ! $this->files->isDirectory($this->dir)) {
+            $this->files->makeDirectory($this->dir, 0755, true);
+        }
+
         if ($this->files->exists($path)) {
             if ($this->confirm('The resource already exists. Do you want to overwrite it? [y|N]')) {
                 $this->files->delete($path);
