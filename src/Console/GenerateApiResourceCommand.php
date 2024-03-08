@@ -117,7 +117,12 @@ class GenerateApiResourceCommand extends Command
         $table = $model->getConnection()->getTablePrefix().$model->getTable();
 
         try {
-            $schema = $model->getConnection()->getDoctrineSchemaManager();
+            // Check if getDoctrineSchemaManager method exists to deal with Laravel 11 upgrade
+            if (method_exists($model->getConnection(), 'getDoctrineSchemaManager')) {
+                $schema = $model->getConnection()->getDoctrineSchemaManager();
+            } else {
+                $schema = $model->getConnection()->getSchemaBuilder();
+            }
         } catch (Exception $exception) {
             $this->error($exception->getMessage());
 
@@ -139,15 +144,27 @@ class GenerateApiResourceCommand extends Command
             [$database, $table] = explode('.', $table);
         }
 
-        $columns = $schema->listTableColumns($table, $database);
+        //$columns = $schema->listTableColumns($table, $database);
+        // Check if listTableColumns method exists to deal with Laravel 11 upgrade
+        if (method_exists($schema, 'listTableColumns')) {
+            $columns = $schema->listTableColumns($table, $database);
+        } else {
+            $columns = $schema->getColumns($table);
+        }
 
         if ( ! $columns) {
             return;
         }
 
         foreach ($columns as $column) {
-            $field = $column->getName();
-            $type = $column->getType()->getName();
+            // Check if $column is an array to deal with Laravel 11 upgrade
+            if (is_array($column)) {
+                $field = $column['name'];
+                $type = $column['type'];
+            } else {
+                $field = $column->getName();
+                $type = $column->getType()->getName();
+            }
 
             $field_type = match ($type) {
                 'string', 'text', 'date', 'time', 'guid', 'datetimetz', 'datetime', 'decimal' => 'string',

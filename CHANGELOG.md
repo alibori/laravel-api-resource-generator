@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-api-resource-generator` will be documented in this file.
 
+## 1.3.2 - 2024-03-08
+
+### Added
+
+- Added support for **Laravel 11**
+
 ## 1.3.1 - 2023-07-29
 
 ### Fixed
