@@ -26,41 +26,20 @@ class GenerateApiResourceCommand extends Command
     /**
      * @var string
      */
-    protected $description = 'Generate a Laravel API Resource for a given model.';
+    protected $description = 'Generate a Laravel API Resource for a given model or models.';
 
-    /**
-     * @var string
-     */
     protected string $dir;
 
-    /**
-     * @var string
-     */
     protected string $namespace;
 
-    /**
-     * @var Filesystem
-     */
     protected Filesystem $files;
 
-    /**
-     * @var array
-     */
     protected array $properties = [];
 
-    /**
-     * @var array
-     */
     protected array $php_docs_properties = [];
 
-    /**
-     * @var string
-     */
     protected string $stub = __DIR__.'/stubs/api-resource.php.stub';
 
-    /**
-     * @var string
-     */
     protected string $return_case = 'snake_case';
 
     public function __construct(Filesystem $files)
@@ -82,11 +61,24 @@ class GenerateApiResourceCommand extends Command
         $this->dir = $this->defaultResourcesDir();
         $this->namespace = config('apiresourcegenerator.resources.namespace');
 
-        $model = $this->loadModel($this->argument('model'));
+        // If the model argument contains a comma, we assume it's a list of models. We will generate a resource for each model.
+        if (Str::contains($this->argument('model'), ',')) {
+            $models = explode(',', $this->argument('model'));
 
-        $this->getPropertiesFromTable($model);
+            foreach ($models as $model_classname) {
+                $model = $this->loadModel($model_classname);
 
-        $this->generateResource($model);
+                $this->getPropertiesFromTable($model);
+
+                $this->generateResource($model);
+            }
+        } else {
+            $model = $this->loadModel($this->argument('model'));
+
+            $this->getPropertiesFromTable($model);
+
+            $this->generateResource($model);
+        }
     }
 
     protected function getArguments(): array
@@ -144,7 +136,6 @@ class GenerateApiResourceCommand extends Command
             [$database, $table] = explode('.', $table);
         }
 
-        //$columns = $schema->listTableColumns($table, $database);
         // Check if listTableColumns method exists to deal with Laravel 11 upgrade
         if (method_exists($schema, 'listTableColumns')) {
             $columns = $schema->listTableColumns($table, $database);
@@ -239,6 +230,7 @@ class GenerateApiResourceCommand extends Command
         $stub = str_replace('{{ docblock }}', $doc_block, $stub);
         $stub = str_replace('{{ class }}', $name.'Resource', $stub);
         $stub = str_replace('{{ namespace }}', $this->namespace, $stub);
+
         return str_replace('{{ fields }}', $fields, $stub);
     }
 

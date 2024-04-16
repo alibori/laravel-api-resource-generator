@@ -22,3 +22,16 @@ it('can generate a resource', function (): void {
 
     unlink(__DIR__.'/../../app/Http/Resources/UserResource.php');
 });
+
+// Test to check if GenerateApiResourceCommand is working well with multiple models
+it('can generate a resource for multiple models', function (): void {
+    $command = $this->app->make(GenerateApiResourceCommand::class);
+
+    $this->runCommand($command, ['model' => 'User,Post']);
+
+    expect(file_exists(__DIR__.'/../../app/Http/Resources/UserResource.php'))->toBeTrue()
+        ->and(file_exists(__DIR__.'/../../app/Http/Resources/PostResource.php'))->toBeTrue();
+
+    unlink(__DIR__.'/../../app/Http/Resources/UserResource.php');
+    unlink(__DIR__.'/../../app/Http/Resources/PostResource.php');
+});
