@@ -147,6 +147,9 @@ class GenerateApiResourceCommand extends Command
             return;
         }
 
+        $this->properties = [];
+        $this->php_docs_properties = [];
+
         foreach ($columns as $column) {
             // Check if $column is an array to deal with Laravel 11 upgrade
             if (is_array($column)) {
