@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="" tests="2" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.207782">
-    <testsuite name="P\Tests\Feature\Test" file="C:\laragon\www\custom-packages\laravel-api-resource-generator\vendor\pestphp\pest\src\Factories\TestCaseFactory.php(223) : eval()'d code" tests="2" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.207782">
-      <testcase name="it database users table has been created" assertions="1" time="0.103244"/>
-      <testcase name="it can generate a resource" assertions="1" time="0.104538"/>
+  <testsuite name="" tests="3" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="0.203934">
+    <testsuite name="P\Tests\Feature\Test" file="C:\laragon\www\custom-packages\laravel-api-resource-generator\vendor\pestphp\pest\src\Factories\TestCaseFactory.php(223) : eval()'d code" tests="3" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="0.203934">
+      <testcase name="it database users table has been created" assertions="1" time="0.096050"/>
+      <testcase name="it can generate a resource" assertions="1" time="0.093684"/>
+      <testcase name="it can generate a resource for multiple models" assertions="2" time="0.014201"/>
     </testsuite>
   </testsuite>
 </testsuites>

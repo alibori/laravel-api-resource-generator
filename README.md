@@ -22,7 +22,13 @@ All you need to do is run the following command:
 php artisan api-resource:generate <model-name>
 ```
 
-This command will generate a new resource for the given model name with the properties defined in the model.
+If you want to generate multiple resources at once, you can pass multiple model names separated by a comma:
+
+``` bash
+php artisan api-resource:generate <model-name>,<model-name>,<model-name>
+```
+
+This command will generate a new resource for the given model/s name/s with the properties defined in the model.
 
 If you want to set the array keys of the resource as *camelCase*, you will be prompted to do it.
 
