@@ -177,7 +177,7 @@ class GenerateApiResourceCommand extends Command
         $driverName = $model->getConnection()->getDriverName();
 
 
-        if (!$columns) {
+        if ( ! $columns) {
             return;
         }
 
@@ -282,7 +282,7 @@ class GenerateApiResourceCommand extends Command
 
             $attr = 'property';
 
-            $tagLine = trim("@{$attr} {$type[0]} {$name}");
+            $tagLine = mb_trim("@{$attr} {$type[0]} {$name}");
             $tag = Tag::createInstance($tagLine, $phpdoc);
             $phpdoc->appendTag($tag);
         }
