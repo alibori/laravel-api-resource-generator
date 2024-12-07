@@ -33,21 +33,20 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=8.1",
-        "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
-        "illuminate/console": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
-        "illuminate/filesystem": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
-        "doctrine/dbal": "^2.9|^2.10|^3.0",
-        "illuminate/database": "^9.1|^9.2|^10.0|^11.0",
+        "php": ">=8.2",
+        "illuminate/support": "^11.15",
+        "illuminate/console": "^11.15",
+        "illuminate/filesystem": "^11.15",
+        "illuminate/database": "^11.15",
         "barryvdh/reflection-docblock": "^2.1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "orchestra/testbench": "^7.22|^8.11|^9.0",
-        "laravel/pint": "^1.6",
-        "pestphp/pest": "^1.22",
-        "pestphp/pest-plugin-laravel": "^1.4"
+        "orchestra/testbench": "^9.6",
+        "laravel/pint": "^1.18",
+        "pestphp/pest": "^3.6",
+        "pestphp/pest-plugin-laravel": "^3.0"
     },
     "scripts": {
         "test": "vendor/bin/pest",

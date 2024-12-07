@@ -106,7 +106,7 @@ class GenerateApiResourceCommand extends Command
      */
     protected function getPropertiesFromTable(Model $model): void
     {
-        $table = $model->getConnection()->getTablePrefix().$model->getTable();
+        /*$table = $model->getConnection()->getTablePrefix().$model->getTable();
 
         try {
             // Check if getDoctrineSchemaManager method exists to deal with Laravel 11 upgrade
@@ -170,6 +170,41 @@ class GenerateApiResourceCommand extends Command
 
             $this->properties[$field] = $field;
             $this->php_docs_properties[$field] = $field_type.' '.$field;
+        }*/
+        $table = $model->getTable();
+        $schema = $model->getConnection()->getSchemaBuilder();
+        $columns = $schema->getColumns($table);
+        $driverName = $model->getConnection()->getDriverName();
+
+
+        if (!$columns) {
+            return;
+        }
+
+        foreach ($columns as $column) {
+            $name = $column['name'];
+            if (in_array($name, $model->getDates())) {
+                $type = 'string';
+            } else {
+                // Match types to php equivalent
+                $type = match ($column['type_name']) {
+                    'tinyint', 'bit',
+                    'integer', 'int', 'int4',
+                    'smallint', 'int2',
+                    'mediumint',
+                    'bigint', 'int8' => 'int',
+
+                    'boolean', 'bool' => 'bool',
+
+                    'float', 'real', 'float4',
+                    'double', 'float8' => 'float',
+
+                    default => 'string',
+                };
+            }
+
+            $this->properties[$name] = $name;
+            $this->php_docs_properties[$name] = $type.' '.$name;
         }
     }
 
