@@ -7,7 +7,6 @@ namespace Alibori\LaravelApiResourceGenerator\Console;
 use Barryvdh\Reflection\DocBlock;
 use Barryvdh\Reflection\DocBlock\Serializer as DocBlockSerializer;
 use Barryvdh\Reflection\DocBlock\Tag;
-use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -51,7 +50,6 @@ class GenerateApiResourceCommand extends Command
 
     /**
      * @throws BindingResolutionException
-     * @throws \Doctrine\DBAL\Exception
      * @throws FileNotFoundException
      */
     public function handle(): void
@@ -101,49 +99,14 @@ class GenerateApiResourceCommand extends Command
         return $this->laravel->make(config('apiresourcegenerator.models.namespace').'\\'.$model);
     }
 
-    /**
-     * @throws \Doctrine\DBAL\Exception
-     */
     protected function getPropertiesFromTable(Model $model): void
     {
-        /*$table = $model->getConnection()->getTablePrefix().$model->getTable();
+        $table = $model->getTable();
+        $schema = $model->getConnection()->getSchemaBuilder();
+        $columns = $schema->getColumns($table);
 
-        try {
-            // Check if getDoctrineSchemaManager method exists to deal with Laravel 11 upgrade
-            if (method_exists($model->getConnection(), 'getDoctrineSchemaManager')) {
-                $schema = $model->getConnection()->getDoctrineSchemaManager();
-            } else {
-                $schema = $model->getConnection()->getSchemaBuilder();
-            }
-        } catch (Exception $exception) {
-            $this->error($exception->getMessage());
 
-            $class = get_class($model);
-            $driver = $model->getConnection()->getDriverName();
-
-            if (in_array($driver, ['mysql', 'pgsql', 'sqlite'])) {
-                $this->error("Database driver ({$driver}) for {$class} model is not configured properly!");
-            } else {
-                $this->warn("Database driver ({$driver}) for {$class} model is not supported.");
-            }
-
-            return;
-        }
-
-        $database = null;
-
-        if (Str::contains($table, '.')) {
-            [$database, $table] = explode('.', $table);
-        }
-
-        // Check if listTableColumns method exists to deal with Laravel 11 upgrade
-        if (method_exists($schema, 'listTableColumns')) {
-            $columns = $schema->listTableColumns($table, $database);
-        } else {
-            $columns = $schema->getColumns($table);
-        }
-
-        if ( ! $columns) {
+        if (!$columns) {
             return;
         }
 
@@ -151,38 +114,8 @@ class GenerateApiResourceCommand extends Command
         $this->php_docs_properties = [];
 
         foreach ($columns as $column) {
-            // Check if $column is an array to deal with Laravel 11 upgrade
-            if (is_array($column)) {
-                $field = $column['name'];
-                $type = $column['type'];
-            } else {
-                $field = $column->getName();
-                $type = $column->getType()->getName();
-            }
-
-            $field_type = match ($type) {
-                'string', 'text', 'date', 'time', 'guid', 'datetimetz', 'datetime', 'decimal' => 'string',
-                'integer', 'bigint', 'smallint' => 'integer',
-                'boolean' => 'boolean',
-                'float' => 'float',
-                default => 'mixed',
-            };
-
-            $this->properties[$field] = $field;
-            $this->php_docs_properties[$field] = $field_type.' '.$field;
-        }*/
-        $table = $model->getTable();
-        $schema = $model->getConnection()->getSchemaBuilder();
-        $columns = $schema->getColumns($table);
-        $driverName = $model->getConnection()->getDriverName();
-
-
-        if (!$columns) {
-            return;
-        }
-
-        foreach ($columns as $column) {
             $name = $column['name'];
+
             if (in_array($name, $model->getDates())) {
                 $type = 'string';
             } else {
@@ -282,14 +215,14 @@ class GenerateApiResourceCommand extends Command
 
             $attr = 'property';
 
-            $tagLine = trim("@{$attr} {$type[0]} {$name}");
-            $tag = Tag::createInstance($tagLine, $phpdoc);
+            $tag_line = trim("@{$attr} {$type[0]} {$name}");
+            $tag = Tag::createInstance($tag_line, $phpdoc);
             $phpdoc->appendTag($tag);
         }
 
         $serializer = new DocBlockSerializer();
-        $docComment = $serializer->getDocComment($phpdoc);
+        $doc_comment = $serializer->getDocComment($phpdoc);
 
-        return "{$docComment}";
+        return "{$doc_comment}";
     }
 }

@@ -6,6 +6,7 @@ namespace Alibori\LaravelApiResourceGenerator\Tests;
 
 use Alibori\LaravelApiResourceGenerator\LaravelApiResourceGeneratorServiceProvider;
 use CreateUsersTable;
+use CreatePostsTable;
 use Illuminate\Console\Command;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Symfony\Component\Console\Tester\CommandTester;

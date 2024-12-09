@@ -30,6 +30,7 @@ it('can generate a resource for multiple models', function (): void {
     $this->runCommand($command, ['model' => 'User,Post']);
 
     expect(file_exists(__DIR__.'/../../app/Http/Resources/UserResource.php'))->toBeTrue()
+        ->and(file_get_contents(__DIR__.'/../../app/Http/Resources/UserResource.php'))->toContain('string $email')
         ->and(file_exists(__DIR__.'/../../app/Http/Resources/PostResource.php'))->toBeTrue();
 
     unlink(__DIR__.'/../../app/Http/Resources/UserResource.php');

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="C:\laragon\www\custom-packages\laravel-api-resource-generator\phpunit.xml.dist" tests="3" assertions="4" errors="0" failures="0" skipped="0" time="0.289931">
-    <testsuite name="Alibori Test Suite" tests="3" assertions="4" errors="0" failures="0" skipped="0" time="0.289931">
-      <testsuite name="Tests\Feature\Test" file="tests\Feature\Test.php" tests="3" assertions="4" errors="0" failures="0" skipped="0" time="0.289931">
-        <testcase name="it database users table has been created" file="tests\Feature\Test.php::it database users table has been created" class="Tests\Feature\Test" classname="Tests.Feature.Test" assertions="1" time="0.230880"/>
-        <testcase name="it can generate a resource" file="tests\Feature\Test.php::it can generate a resource" class="Tests\Feature\Test" classname="Tests.Feature.Test" assertions="1" time="0.042592"/>
-        <testcase name="it can generate a resource for multiple models" file="tests\Feature\Test.php::it can generate a resource for multiple models" class="Tests\Feature\Test" classname="Tests.Feature.Test" assertions="2" time="0.016458"/>
+  <testsuite name="C:\laragon\www\custom-packages\laravel-api-resource-generator\phpunit.xml.dist" tests="3" assertions="5" errors="0" failures="0" skipped="0" time="0.209040">
+    <testsuite name="Alibori Test Suite" tests="3" assertions="5" errors="0" failures="0" skipped="0" time="0.209040">
+      <testsuite name="Tests\Feature\Test" file="tests\Feature\Test.php" tests="3" assertions="5" errors="0" failures="0" skipped="0" time="0.209040">
+        <testcase name="it database users table has been created" file="tests\Feature\Test.php::it database users table has been created" class="Tests\Feature\Test" classname="Tests.Feature.Test" assertions="1" time="0.159758"/>
+        <testcase name="it can generate a resource" file="tests\Feature\Test.php::it can generate a resource" class="Tests\Feature\Test" classname="Tests.Feature.Test" assertions="1" time="0.030781"/>
+        <testcase name="it can generate a resource for multiple models" file="tests\Feature\Test.php::it can generate a resource for multiple models" class="Tests\Feature\Test" classname="Tests.Feature.Test" assertions="3" time="0.018500"/>
       </testsuite>
     </testsuite>
   </testsuite>

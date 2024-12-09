@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-api-resource-generator` will be documented in this file.
 
+## 1.4.2 - 2024-12-09
+
+- Fix bug on multiple resource generation.
+
 ## 1.4.1 - 2024-12-07
 
 - Fix dependencies to work with **Laravel 11** last version. 
