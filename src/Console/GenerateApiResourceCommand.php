@@ -106,7 +106,7 @@ class GenerateApiResourceCommand extends Command
         $columns = $schema->getColumns($table);
 
 
-        if (!$columns) {
+        if ( ! $columns) {
             return;
         }
 
@@ -215,7 +215,7 @@ class GenerateApiResourceCommand extends Command
 
             $attr = 'property';
 
-            $tag_line = trim("@{$attr} {$type[0]} {$name}");
+            $tag_line = mb_trim("@{$attr} {$type[0]} {$name}");
             $tag = Tag::createInstance($tag_line, $phpdoc);
             $phpdoc->appendTag($tag);
         }
